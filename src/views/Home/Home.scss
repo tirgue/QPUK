@@ -14,7 +14,9 @@
 #logo {
     max-width: min(100vw, 800px);
     animation-name: growLogo;
-    animation-duration: 3s;
+    animation-duration: 2s;
+    animation-timing-function: cubic-bezier(.41,.97,.59,.96);
+    padding: 10px;
 }
 
 @keyframes growLogo {
@@ -28,6 +30,21 @@
     }
 }
 
-// .selection {
+.homeButton {
+    font-size: min(5vw, 40px) !important;
+    width: min(25vw, 200px);
+    height: min(150%, 70px);
+    background-color: colors.$darkBlue !important;
+    border-width: 0 !important;
+    transition: 300ms !important;
 
-// }
+    &:hover {
+        background-color: colors.$darkBlue;
+        -webkit-box-shadow: 0px 0px 25px 0px colors.$darkBlue; 
+        box-shadow: 0px 0px 25px 0px colors.$darkBlue;
+    }
+
+    &:focus {
+        background-color: colors.$darkBlue;
+    }
+}
