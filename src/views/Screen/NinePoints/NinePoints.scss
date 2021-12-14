@@ -1,0 +1,44 @@
+@use "../../../constants/colors.scss";
+
+#ninePoints {
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    padding: 0 5%;
+}
+
+.bar {
+    width: 25%;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    margin: 5px;
+}
+
+.teamName {
+    padding: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 2em;
+    color: rgb(236, 236, 236);
+    background-color: colors.$darkBlue;
+    border: 3px solid colors.$lightBlue;
+    border-radius: 30px;
+}
+
+.point {
+    height: 6%;
+    margin: 5px;
+    border-radius: 30px;
+    border: 3px solid rgb(212, 212, 212);
+
+    &-on {
+        background-color: colors.$orange;
+    }
+
+    &-off {
+        background-color: colors.$darkBlue;
+        border: 3px solid colors.$lightBlue;
+    }
+}

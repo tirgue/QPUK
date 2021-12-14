@@ -1,15 +1,25 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { Home } from '../views/views.index';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { GoBackButton } from '../components/components.index';
+import { Home, AnimateMenu, Screen } from '../views/views.index';
 
 const RouteIndex = () => {
     return (
         <Router>
-            <Switch>
-                <Route path="/" exact>
-                    <Home />
+            <Route path="/" exact>
+                <Home />
+            </Route>
+            <Route path="/:path">
+                <GoBackButton />
+            </Route>
+            <Route path="/animate">
+                <Route path="/animate" exact>
+                    <AnimateMenu />
                 </Route>
-            </Switch>
+                <Route path="/animate/screen">
+                    <Screen />
+                </Route>
+            </Route>
         </Router>
     );
 }

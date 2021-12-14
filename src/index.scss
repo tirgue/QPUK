@@ -1,3 +1,5 @@
+@use "./constants/colors.scss";
+
 @font-face {
     font-family: Kimberley;
     src: url(assets/fonts/kimberley.ttf);
@@ -11,6 +13,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   font-family: Kimberley !important;
+  background: colors.$lightBlue !important;
+  background: linear-gradient(0deg, colors.$lightBlue 0%, colors.$darkBlue 100%) !important;
+  min-height: 100vh;
 }
 
 code {

@@ -1,0 +1,16 @@
+@use "../../constants/colors.scss";
+
+.buttonPrimary {
+    font-size: min(5vw, 40px) !important;
+    width: min(30vw, 200px);
+    height: min(150%, 70px);
+    background-color: colors.$darkBlue !important;
+    border-width: 0 !important;
+    transition: 300ms !important;
+
+    &:hover, &:focus  {
+        background-color: colors.$darkBlue !important;
+        -webkit-box-shadow: 0px 0px 25px 0px colors.$darkBlue !important; 
+        box-shadow: 0px 0px 25px 0px colors.$darkBlue !important;
+    }
+}

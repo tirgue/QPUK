@@ -1,7 +1,9 @@
 import React from 'react';
 import './Home.scss'
 import qpukLogo from '../../assets/images/qpukLogo.png'
-import { Col, Row, Button } from 'react-bootstrap';
+import { Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { ButtonPrimary } from '../../components/components.index';
 
 const Home = () => {
     return (
@@ -9,10 +11,10 @@ const Home = () => {
             <img id="logo" alt="Logo de Question pour un Kupong" src={qpukLogo} />
             <Row>
                 <Col>
-                    <Button className="homeButton">Jouer</Button>
+                    <ButtonPrimary>Jouer</ButtonPrimary>
                 </Col>
                 <Col>
-                    <Button className="homeButton">Animer</Button>
+                    <ButtonPrimary as={Link} to="/animate">Animer</ButtonPrimary>
                 </Col>
             </Row>
         </div>
