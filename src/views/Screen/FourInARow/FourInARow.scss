@@ -1,0 +1,79 @@
+@use '../../../constants/colors.scss';
+
+#fiar {
+    min-height: 100vh;
+    min-width: 100vw;
+    display: flex;
+    align-items: center;
+}
+
+.fiar-infos {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+    padding-left: 5%;
+    align-items: center;
+
+    & .subject, .teamName {
+        width: 100%;
+    }
+}
+
+.subject {
+    padding: 15px;
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 2em;
+    color: rgb(236, 236, 236);
+    background-color: colors.$orange;
+    border: 3px solid rgb(212, 212, 212);
+    border-radius: 30px;
+}
+
+.timer {
+    margin-top: 45px;
+    padding: 15px;
+    text-align: center;
+    font-size: 2em;
+    color: rgb(236, 236, 236);
+    background-color: colors.$darkBlue;
+    border: 3px solid rgb(212, 212, 212);
+    border-radius: 30px;
+    width: 30vh;
+    height: 25vh;
+    line-height: 20vh;
+    font-size: 20vh;
+}
+
+.stack {
+    align-items: center;
+    min-width: 30vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.stack .point {
+    margin: 10px;
+    width: 15vh;
+    height: 15vh;
+    text-align: center;
+    line-height: 15vh;
+    font-size: 6em;
+    color: rgba($color: #ffffff, $alpha: .9);
+}
+
+.point-selected::after {
+    content: "";
+    display: block;
+    position: relative;
+    top: calc(-3px + -15vh);
+    left: -3px;
+    border-radius: 100%;
+    min-width: 15vh;
+    min-height: 15vh;
+    -webkit-box-shadow: 0px 0px 0px 10px colors.$orange; 
+    box-shadow: 0px 0px 0px 10px colors.$orange;
+    background-color: colors.$orange;
+    z-index: -1;
+}
