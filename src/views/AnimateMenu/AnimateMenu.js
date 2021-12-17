@@ -6,8 +6,8 @@ import { Link } from 'react-router-dom';
 const AnimateMenu = () => {
     return (
         <div id="animateMenu">
-            <ButtonPrimary>Console</ButtonPrimary>
-            <ButtonPrimary as={Link} to="/animate/screen">Écran</ButtonPrimary>
+            <ButtonPrimary className="m-3" as={Link} to="/animate/console">Console</ButtonPrimary>
+            <ButtonPrimary className="m-3" as={Link} to="/animate/screen">Écran</ButtonPrimary>
         </div>
     );
 }

@@ -6,7 +6,10 @@ import './GoBackButton.scss'
 const GoBackButton = () => {
     const history = useHistory()
     const handleGoBack = () => {
-        history.goBack()
+        const pathArray = history.location.pathname.split("/")
+        pathArray.pop();
+        const newPath = pathArray.join("/")
+        history.push(newPath)
     }
     return (
         <ButtonPrimary className="goBack" onClick={handleGoBack}>Retour</ButtonPrimary>
