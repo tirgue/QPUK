@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ButtonPrimary } from '../../components/components.index';
-import AddTeam from './AddTeam/AddTeam';
 import './Console.scss';
 
+import AddTeam from './AddTeam/AddTeam';
+import NinePointsConsole from './NinePointsConsole/NinePointsConsole';
+
 const Console = ({ children }) => {
+    const [consoleVisibility, setConsoleVisibility] = useState("consoleMenu-show")
+
+    const handleMenuClick = () => {
+        if (consoleVisibility == "consoleMenu-show")
+            return setConsoleVisibility("consoleMenu-hide")
+        return setConsoleVisibility("consoleMenu-show")
+    }
+
     return (
         <div id="console">
-            <div className="consoleMenu">
+            <div className={`consoleMenu ${consoleVisibility}`}>
                 <ButtonPrimary as={Link} to="/animate/console/add">Ajouter une équipe</ButtonPrimary>
                 <ButtonPrimary as={Link} to="/animate/console/nine-points">9 points gagnants</ButtonPrimary>
                 <ButtonPrimary as={Link} to="/animate/console/four-in-a-row">4 à la suite</ButtonPrimary>
@@ -16,6 +26,7 @@ const Console = ({ children }) => {
             <div className="consoleContext">
                 {children}
             </div>
+            <ButtonPrimary className="menuConsole" onClick={handleMenuClick}>Menu</ButtonPrimary>
         </div>
     );
 };
@@ -23,5 +34,6 @@ const Console = ({ children }) => {
 export default Console;
 
 export {
-    AddTeam
+    AddTeam,
+    NinePointsConsole,
 }
