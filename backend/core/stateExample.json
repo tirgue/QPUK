@@ -1,0 +1,67 @@
+{
+    "currentGame": "fourInARow",
+    "games": {
+        "ninePoints": {
+            "teams": {
+                "team1": {
+                    "points": 6,
+                    "buzz": true
+                },
+                "team2": {
+                    "points": 6,
+                    "buzz": false
+                },
+                "team3": {
+                    "points": 6,
+                    "buzz": false
+                },
+                "team4": {
+                    "points": 6,
+                    "buzz": false
+                }
+            }
+        },
+        "fourInARow": {
+            "teams": {
+                "team1": {
+                    "currentPoints": 1,
+                    "bestPoints": 3
+                },
+                "team2": {
+                    "currentPoints": 1,
+                    "bestPoints": 3
+                },
+                "team3": {
+                    "currentPoints": 1,
+                    "bestPoints": 3
+                },
+                "team4": {
+                    "currentPoints": 1,
+                    "bestPoints": 3
+                }
+            },
+            "timer": {
+                "value": 16,
+                "running": true
+            }
+        },
+        "faceToFace": {
+            "teams": {
+                "team1": {
+                    "points": 6,
+                    "buzz": true
+                },
+                "team2": {
+                    "points": 6,
+                    "buzz": false
+                }
+            },
+            "timer": {
+                "value": 16,
+                "running": true
+            },
+            "firstHand": "team2",
+            "hand": "team1"
+        }
+    }
+}
