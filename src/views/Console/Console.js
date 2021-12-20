@@ -4,13 +4,15 @@ import { ButtonPrimary } from '../../components/components.index';
 import './Console.scss';
 
 import AddTeam from './AddTeam/AddTeam';
+import FaceToFaceConsole from './FaceToFaceConsole/FaceToFaceConsole';
+import FourInARowConsole from './FourInARowConsole/FourInARowConsole';
 import NinePointsConsole from './NinePointsConsole/NinePointsConsole';
 
 const Console = ({ children }) => {
     const [consoleVisibility, setConsoleVisibility] = useState("consoleMenu-show")
 
     const handleMenuClick = () => {
-        if (consoleVisibility == "consoleMenu-show")
+        if (consoleVisibility === "consoleMenu-show")
             return setConsoleVisibility("consoleMenu-hide")
         return setConsoleVisibility("consoleMenu-show")
     }
@@ -35,5 +37,7 @@ export default Console;
 
 export {
     AddTeam,
+    FaceToFaceConsole,
+    FourInARowConsole,
     NinePointsConsole,
 }

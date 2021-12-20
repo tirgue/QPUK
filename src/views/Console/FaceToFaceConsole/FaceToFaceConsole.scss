@@ -1,0 +1,50 @@
+#faceToFaceConsole {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+.teamControllers {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    justify-content: space-around;
+
+    & .teamName {
+        font-size: 25px;
+    }
+}
+
+#faceToFaceConsole .teamController {
+    max-width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    & * {
+        margin: 5% 0;
+    }
+}
+
+.addPoint, .removePoint {
+    width: 100%;
+}
+
+.teamController .point {
+    margin: 10px;
+    width: 15vh;
+    height: 15vh;
+    text-align: center;
+    line-height: 15vh;
+    font-size: 6em;
+    color: rgba($color: #ffffff, $alpha: .9);
+}
+
+.unlockBuzzer {
+    margin-top: 5%;
+    width: 80%;
+}
