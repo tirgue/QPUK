@@ -17,7 +17,6 @@ const NinePointsConsole = () => {
     }, []);
 
     const handleAddPoint = (teamName, points) => {
-        console.log(teamName, points);
         axios.post('/api/nine-points/addPoint', {
             teamName: teamName,
             points: points

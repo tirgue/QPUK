@@ -17,7 +17,6 @@ const FourInARowConsole = () => {
     }, []);
 
     const handleAddPoint = (teamName, points) => {
-        console.log(teamName, points);
         axios.post('/api/four-in-a-row/addPoint', {
             teamName: teamName,
             points: points
@@ -45,7 +44,7 @@ const FourInARowConsole = () => {
             <div className="teamControllers">
                 {
                     Object.entries(teams).map(([teamName, { currentPoints, bestPoints }]) =>
-                        <div className="teamController">
+                        <div key={teamName} className="teamController">
                             <div className="teamName">{teamName}</div>
                             <div className="point">{bestPoints}</div>
                             <div className="point">{currentPoints}</div>

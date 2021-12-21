@@ -6,6 +6,7 @@ class GameState {
     init() {
         this.state = {
             "currentGame": "ninePoints",
+            "teams": [],
             "games": {
                 "ninePoints": {
                     "teams": {}
@@ -30,6 +31,10 @@ class GameState {
         }
     }
     addTeam(teamName) {
+        this.state.teams.push({
+            teamName: teamName,
+            buzzerId: null
+        })
         this.state.games.ninePoints.teams[teamName] = {
             "points": 0,
             "buzz": false
@@ -44,6 +49,9 @@ class GameState {
         }
     }
     removeTeam(teamName) {
+        this.state.teams = this.state.teams.filter(team => {
+            return team.teamName !== teamName
+        })
         delete this.state.games.ninePoints.teams[teamName]
         delete this.state.games.fourInARow.teams[teamName]
         delete this.state.games.faceToFace.teams[teamName]

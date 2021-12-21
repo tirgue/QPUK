@@ -1,5 +1,23 @@
 {
     "currentGame": "fourInARow",
+    "teams": [
+        {
+            "teamName": "team1",
+            "buzzerId": "red"
+        },
+        {
+            "teamName": "team2",
+            "buzzerId": "blue"
+        },
+        {
+            "teamName": "team3",
+            "buzzerId": "green"
+        },
+        {
+            "teamName": "team4",
+            "buzzerId": "yellow"
+        }
+    ],
     "games": {
         "ninePoints": {
             "teams": {

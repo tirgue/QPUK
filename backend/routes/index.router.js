@@ -5,10 +5,12 @@ var gameState = require('../core/GameState')
 var ninePointsRouter = require('./ninePoints/ninePoints.router')
 var fourInARowRouter = require('./fourInARow/fourInARow.router')
 var faceToFaceRouter = require('./faceToFace/faceToface.router')
+var buzzerRouter = require('./buzzer.router')
 
 router.use('/nine-points', ninePointsRouter)
 router.use('/four-in-a-row', fourInARowRouter)
 router.use('/face-to-face', faceToFaceRouter)
+router.use('/buzz', buzzerRouter)
 
 // Get Game State
 router.get('/state', (req, res, next) => {
@@ -18,6 +20,7 @@ router.get('/state', (req, res, next) => {
 router.post('/addTeam', (req, res, next) => {
     ({ teamName } = req.body)
     gameState.addTeam(teamName)
+    gameState.setCurrentGame("addTeam")
     res.status(200).json(gameState.state)
 })
 
