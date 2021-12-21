@@ -43,6 +43,11 @@ class GameState {
             "buzz": true
         }
     }
+    removeTeam(teamName) {
+        delete this.state.games.ninePoints.teams[teamName]
+        delete this.state.games.fourInARow.teams[teamName]
+        delete this.state.games.faceToFace.teams[teamName]
+    }
     setCurrentGame(gameName) {
         this.state.currentGame = gameName
     }
@@ -121,9 +126,14 @@ class GameState {
             this.state.games.faceToFace.hand = teamName
         }
     }
+    faceToFaceClearBuzz() {
+        Object.entries(this.state.games.faceToFace.teams).forEach(([team, teamState]) => {
+            teamState.buzz = false
+        })
+    }
     faceToFaceStartTimer(timerValue = 20) {
         this.state.games.faceToFace.timer.value = timerValue
-        this.faceToFaceStartTimer()
+        this.faceToFaceResumeTimer()
     }
     faceToFaceStopTimer() {
         this.state.games.faceToFace.timer.running = false
