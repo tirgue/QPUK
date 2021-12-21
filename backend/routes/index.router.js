@@ -27,6 +27,11 @@ router.post('/removeTeam', (req, res, next) => {
     res.status(200).json(gameState.state)
 })
 
+router.post('/currentGame', (req, res, next) => {
+    ({ game } = req.body)
+    gameState.setCurrentGame(game)
+    res.status(200).json(gameState.state)
+})
 
 
 module.exports = router;
