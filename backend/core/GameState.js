@@ -18,7 +18,8 @@ class GameState {
                         "running": false,
                         "lastStop": new Date()
                     },
-                    "theme": ""
+                    "theme": "",
+                    "currentTeam": ""
                 },
                 "faceToFace": {
                     "teams": {},
@@ -113,16 +114,29 @@ class GameState {
     }
     fourInARowStartTimer(timerValue = 40) {
         this.state.games.fourInARow.timer.value = timerValue
-        this.fourInARowStopTimer()
+        this.state.games.fourInARow.timer.running = false
+        this.state.games.fourInARow.timer.lastStop = new Date()
     }
     fourInARowStopTimer() {
+        if (!this.state.games.fourInARow.timer.running) return
+        const newDate = new Date()
         this.state.games.fourInARow.timer.running = false
+        this.state.games.fourInARow.timer.value = Math.max(
+            this.state.games.fourInARow.timer.value - (newDate - this.state.games.fourInARow.timer.lastStop) / 1000,
+            0
+        )
+        this.state.games.fourInARow.timer.lastStop = newDate
     }
     fourInARowResumeTimer() {
+        if (this.state.games.fourInARow.timer.running) return
         this.state.games.fourInARow.timer.running = true
+        this.state.games.fourInARow.timer.lastStop = new Date()
     }
     fourInARowSetTheme(theme) {
         this.state.games.fourInARow.theme = theme
+    }
+    fourInARowSetCurrentTeam(teamName) {
+        this.state.games.fourInARow.currentTeam = teamName
     }
 
     // Face to face methods
@@ -160,7 +174,10 @@ class GameState {
         if (!this.state.games.faceToFace.timer.running) return
         const newDate = new Date()
         this.state.games.faceToFace.timer.running = false
-        this.state.games.faceToFace.timer.value = this.state.games.faceToFace.timer.value - (newDate - this.state.games.faceToFace.timer.lastStop) / 1000
+        this.state.games.faceToFace.timer.value = Math.max(
+            this.state.games.faceToFace.timer.value - (newDate - this.state.games.faceToFace.timer.lastStop) / 1000,
+            0
+        )
         this.state.games.faceToFace.timer.lastStop = newDate
     }
     faceToFaceResumeTimer() {

@@ -40,7 +40,7 @@ const FaceToFaceConsole = () => {
         const clock = setTimeout(() => {
             setTimer({
                 ...timer,
-                value: timer.value - 1
+                value: Math.max(timer.value - 1, 0)
             })
         }, 1000)
 

@@ -63,7 +63,8 @@
                 "running": true,
                 "lastStop": "2021-12-22T19:11:39.954Z"
             },
-            "theme": "Les poissons"
+            "theme": "Les poissons",
+            "currentTeam": "team1"
         },
         "faceToFace": {
             "teams": {

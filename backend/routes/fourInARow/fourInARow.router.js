@@ -39,4 +39,10 @@ router.post('/theme', (req, res, next) => {
     res.status(200).json(gameState.state)
 })
 
+router.post('/currentTeam', (req, res, next) => {
+    ({ teamName } = req.body)
+    gameState.fourInARowSetCurrentTeam(teamName)
+    res.status(200).json(gameState.state)
+})
+
 module.exports = router

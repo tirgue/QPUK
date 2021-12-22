@@ -8,22 +8,40 @@ import './FourInARowConsole.scss'
 const FourInARowConsole = () => {
 
     const [teams, setTeams] = useState({})
+    const [currentTeam, setCurrentTeam] = useState("")
     const [timer, setTimer] = useState({})
     const inputThemeRef = useRef()
+
+    const parseResponse = (response) => {
+        const state = response.data
+        const ninePointsState = state.games.ninePoints
+        const fourInARowState = state.games.fourInARow
+        const teamToDelete = worstTeam(ninePointsState.teams, "points")
+        const bestTeams = { ...fourInARowState.teams }
+        delete bestTeams[teamToDelete]
+        setTeams(bestTeams)
+        setTimer(fourInARowState.timer)
+        setCurrentTeam(fourInARowState.currentTeam)
+    }
 
     useEffect(() => {
         axios.get('/api/state')
             .then(response => {
-                const state = response.data
-                const ninePointsState = state.games.ninePoints
-                const fourInARowState = state.games.fourInARow
-                const teamToDelete = worstTeam(ninePointsState.teams, "points")
-                const bestTeams = { ...fourInARowState.teams }
-                delete bestTeams[teamToDelete]
-                setTeams(bestTeams)
-                setTimer(fourInARowState.timer)
+                parseResponse(response)
             })
     }, []);
+
+    useEffect(() => {
+        if (!timer.running) return
+        const clock = setTimeout(() => {
+            setTimer({
+                ...timer,
+                value: Math.max(timer.value - 1, 0)
+            })
+        }, 1000)
+
+        return () => clearTimeout(clock)
+    });
 
     const handleAddPoint = (teamName, points) => {
         axios.post('/api/four-in-a-row/addPoint', {
@@ -31,13 +49,7 @@ const FourInARowConsole = () => {
             points: points
         })
             .then(response => {
-                const state = response.data
-                const ninePointsState = state.games.ninePoints
-                const fourInARowState = state.games.fourInARow
-                const teamToDelete = worstTeam(ninePointsState.teams, "points")
-                const bestTeams = { ...fourInARowState.teams }
-                delete bestTeams[teamToDelete]
-                setTeams(bestTeams)
+                parseResponse(response)
             })
     }
 
@@ -46,13 +58,7 @@ const FourInARowConsole = () => {
             teamName: teamName
         })
             .then(response => {
-                const state = response.data
-                const ninePointsState = state.games.ninePoints
-                const fourInARowState = state.games.fourInARow
-                const teamToDelete = worstTeam(ninePointsState.teams, "points")
-                const bestTeams = { ...fourInARowState.teams }
-                delete bestTeams[teamToDelete]
-                setTeams(bestTeams)
+                parseResponse(response)
             })
     }
 
@@ -64,13 +70,43 @@ const FourInARowConsole = () => {
             .then(response => { })
     }
 
+    const handleStopTimer = () => {
+        axios.post('/api/four-in-a-row/timer/stop')
+            .then(response => {
+                parseResponse(response)
+            })
+    }
+
+    const handleResumeTimer = () => {
+        axios.post('/api/four-in-a-row/timer/resume')
+            .then(async response => {
+                parseResponse(response)
+            })
+    }
+
+    const handleResetTimer = () => {
+        axios.post('/api/four-in-a-row/timer/start')
+            .then(response => {
+                parseResponse(response)
+            })
+    }
+
+    const handleSetCurrentTeam = (teamName) => {
+        axios.post('/api/four-in-a-row/currentTeam', {
+            teamName: teamName
+        })
+            .then(response => {
+                parseResponse(response)
+            })
+    }
+
     return (
         <div id="fourInARowConsole">
             <div className="teamControllers">
                 {
                     Object.entries(teams).map(([teamName, { currentPoints, bestPoints }]) =>
                         <div key={teamName} className="teamController">
-                            <div className="teamName">{teamName}</div>
+                            <div className={`teamName ${teamName === currentTeam ? "buzz" : ""}`} onClick={() => handleSetCurrentTeam(teamName)}>{teamName}</div>
                             <div className="point">{bestPoints}</div>
                             <div className="point">{currentPoints}</div>
                             <ButtonPrimary className="addPoint" onClick={() => handleAddPoint(teamName, 1)}>+</ButtonPrimary>
@@ -81,9 +117,9 @@ const FourInARowConsole = () => {
                 <div className="teamController">
                     <div className="teamName">TIMER</div>
                     <div className="point timerConsole">{timer.value}</div>
-                    <ButtonPrimary className="addPoint">Stop</ButtonPrimary>
-                    <ButtonPrimary className="removePoint">Resume</ButtonPrimary>
-                    <ButtonPrimary className="hand">Reset</ButtonPrimary>
+                    <ButtonPrimary className="addPoint" onClick={handleStopTimer}>Stop</ButtonPrimary>
+                    <ButtonPrimary className="removePoint" onClick={handleResumeTimer}>Resume</ButtonPrimary>
+                    <ButtonPrimary className="hand" onClick={handleResetTimer}>Reset</ButtonPrimary>
                 </div>
             </div>
             <Form.Control ref={inputThemeRef} className="themeInput" onKeyUp={handleThemeKeyUp} placeholder="Theme"></Form.Control>
