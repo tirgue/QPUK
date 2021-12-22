@@ -7,6 +7,7 @@ import axios from 'axios';
 function AddTeam(props) {
 
     const [teams, setTeams] = useState([])
+    const [addTeamDisable, setAddTeamDisable] = useState(false)
     const inputRef = useRef()
 
     useEffect(() => {
@@ -19,6 +20,12 @@ function AddTeam(props) {
 
     const handleAddTeam = () => {
         const teamName = inputRef.current.value
+        if (!teamName) return
+        setAddTeamDisable(true)
+        setTeams([...teams, {
+            teamName: teamName,
+            buzzerId: null
+        }])
         axios.post('/api/addTeam', {
             teamName: teamName
         })
@@ -26,6 +33,9 @@ function AddTeam(props) {
                 const state = response.data
                 setTeams(state.teams)
                 inputRef.current.value = ""
+            })
+            .finally(() => {
+                setAddTeamDisable(false)
             })
     }
 
@@ -49,7 +59,7 @@ function AddTeam(props) {
                 }
             </div>
             <Form.Control className="addInput" ref={inputRef}></Form.Control>
-            <ButtonPrimary onClick={handleAddTeam}>Ajouter</ButtonPrimary>
+            <ButtonPrimary onClick={handleAddTeam} disabled={addTeamDisable}>Ajouter</ButtonPrimary>
         </div>
     );
 }

@@ -9,6 +9,7 @@ const ButtonPrimary = (props) => {
             as={props.as}
             to={props.to}
             onClick={props.onClick}
+            disabled={props.disabled}
         >
             {props.children}
         </Button>

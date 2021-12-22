@@ -5,7 +5,8 @@ var gameState = require('../core/GameState')
 var ninePointsRouter = require('./ninePoints/ninePoints.router')
 var fourInARowRouter = require('./fourInARow/fourInARow.router')
 var faceToFaceRouter = require('./faceToFace/faceToface.router')
-var buzzerRouter = require('./buzzer.router')
+var buzzerRouter = require('./buzzer.router');
+const sleep = require('../utils/sleep');
 
 router.use('/nine-points', ninePointsRouter)
 router.use('/four-in-a-row', fourInARowRouter)
@@ -17,10 +18,20 @@ router.get('/state', (req, res, next) => {
     return res.status(200).json(gameState.state);
 });
 
-router.post('/addTeam', (req, res, next) => {
+router.post('/addTeam', async (req, res, next) => {
+    const awaitingTeam = gameState.state.teams.find(({ buzzerId }) => {
+        return !buzzerId
+    })
+    if (awaitingTeam) {
+        return res.status(200).json(gameState.state)
+    }
+
     ({ teamName } = req.body)
     gameState.addTeam(teamName)
     gameState.setCurrentGame("addTeam")
+    while (gameState.state.teams.find(({ teamName: tn, buzzerId }) => (tn === teamName && !buzzerId))) {
+        await sleep(100)
+    }
     res.status(200).json(gameState.state)
 })
 
