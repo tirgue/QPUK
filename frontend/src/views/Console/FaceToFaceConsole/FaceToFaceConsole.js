@@ -8,6 +8,7 @@ const FaceToFaceConsole = () => {
 
     const [teams, setTeams] = useState({})
     const [timer, setTimer] = useState({})
+    const [firstHand, setFirstHand] = useState("")
 
     const parseResponse = (response) => {
         const state = response.data
@@ -26,6 +27,7 @@ const FaceToFaceConsole = () => {
         delete bestTeams[teamToDelete2]
         setTeams(bestTeams)
         setTimer(faceToFaceState.timer)
+        setFirstHand(faceToFaceState.firstHand)
     }
 
     useEffect(() => {
@@ -69,8 +71,12 @@ const FaceToFaceConsole = () => {
     }
 
     const handleSetHand = (teamName) => {
+        const [otherTeam] = Object.entries(teams).find(([tn]) => {
+            return tn !== teamName
+        })
         axios.post('/api/face-to-face/hand/set', {
-            teamName: teamName
+            teamName: teamName,
+            otherTeam: otherTeam
         })
             .then(response => {
                 parseResponse(response)
@@ -98,6 +104,13 @@ const FaceToFaceConsole = () => {
             })
     }
 
+    const handleUnlockBuzzer = () => {
+        axios.post('/api/face-to-face/unlockBuzzer')
+            .then(response => {
+                parseResponse(response)
+            })
+    }
+
     return (
         <div id="faceToFaceConsole">
             <div className="teamControllers">
@@ -108,7 +121,7 @@ const FaceToFaceConsole = () => {
                             <div className="point">{points}</div>
                             <ButtonPrimary className="addPoint" onClick={() => handleAddPoint(teamName)}>+</ButtonPrimary>
                             <ButtonPrimary className="removePoint" onClick={() => handleRemovePoint(teamName)}>-</ButtonPrimary>
-                            <ButtonPrimary className="hand" onClick={() => handleSetHand(teamName)}>Main</ButtonPrimary>
+                            <ButtonPrimary className={`hand ${firstHand === teamName ? "buzz" : ""}`} onClick={() => handleSetHand(teamName)}>Main</ButtonPrimary>
                         </div>
                     )
                 }
@@ -120,7 +133,7 @@ const FaceToFaceConsole = () => {
                     <ButtonPrimary className="hand" onClick={handleResetTimer}>Reset</ButtonPrimary>
                 </div>
             </div>
-            <ButtonPrimary className="unlockBuzzer">Débloquer buzzer</ButtonPrimary>
+            <ButtonPrimary className="unlockBuzzer" onClick={handleUnlockBuzzer}>Débloquer buzzer</ButtonPrimary>
         </div>
     );
 };

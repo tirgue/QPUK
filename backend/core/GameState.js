@@ -29,7 +29,12 @@ class GameState {
                         "lastStop": new Date()
                     },
                     "firstHand": null,
-                    "hand": null
+                    "hand": {
+                        "4": "",
+                        "3": "",
+                        "2": "",
+                        "1": ""
+                    }
                 },
             },
         }
@@ -49,7 +54,7 @@ class GameState {
         }
         this.state.games.faceToFace.teams[teamName] = {
             "points": 0,
-            "buzz": true
+            "buzz": false
         }
     }
     removeTeam(teamName) {
@@ -150,14 +155,41 @@ class GameState {
             this.state.games.faceToFace.teams[teamName].points -= points
         }
     }
-    faceToFaceSetHand(teamName) {
+    faceToFaceSetHand(teamName, otherTeam) {
         if (this.state.games.faceToFace.teams[teamName]) {
             this.state.games.faceToFace.firstHand = teamName
+            this.state.games.faceToFace.hand["4"] = teamName
+            this.state.games.faceToFace.hand["3"] = otherTeam
+            this.state.games.faceToFace.hand["2"] = teamName
+            this.state.games.faceToFace.hand["1"] = otherTeam
         }
     }
     faceToFaceGiveHand(teamName) {
         if (this.state.games.faceToFace.teams[teamName]) {
-            this.state.games.faceToFace.hand = teamName
+            const currentIndex = parseInt((this.state.games.faceToFace.timer.value / 5) + 1)
+            this.state.games.faceToFace.hand[currentIndex] = teamName
+        }
+    }
+    faceToFaceBuzz(teamName) {
+        if (this.state.games.faceToFace.teams[teamName]) {
+            let buzzerAvailable = true
+            Object.entries(this.state.games.ninePoints.teams).forEach(([team, { points, buzz }]) => {
+                if (buzz) buzzerAvailable = false
+            })
+            if (!buzzerAvailable) return
+
+            const newDate = new Date()
+            const timerValue = this.state.games.faceToFace.timer.value - (newDate - this.state.games.faceToFace.timer.lastStop) / 1000
+            const currentIndex = parseInt((timerValue / 5) + 1)
+
+            console.log("Current Index:", currentIndex);
+            console.log("Hand:", this.state.games.faceToFace.hand);
+            console.log("Team:", teamName);
+
+            if (this.state.games.faceToFace.hand[currentIndex] !== teamName) return
+
+            this.faceToFaceStopTimer()
+            this.state.games.faceToFace.teams[teamName].buzz = true
         }
     }
     faceToFaceClearBuzz() {

@@ -39,8 +39,8 @@ router.post('/timer/resume', (req, res, next) => {
 })
 
 router.post('/hand/set', (req, res, next) => {
-    ({ teamName } = req.body)
-    gameState.faceToFaceSetHand(teamName)
+    ({ teamName, otherTeam } = req.body)
+    gameState.faceToFaceSetHand(teamName, otherTeam)
     res.status(200).json(gameState.state)
 })
 
