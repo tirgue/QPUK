@@ -35,6 +35,18 @@ const FaceToFaceConsole = () => {
             })
     }, []);
 
+    useEffect(() => {
+        if (!timer.running) return
+        const clock = setTimeout(() => {
+            setTimer({
+                ...timer,
+                value: timer.value - 1
+            })
+        }, 1000)
+
+        return () => clearTimeout(clock)
+    });
+
     const handleAddPoint = (teamName) => {
         const points = parseInt(timer.value / 5 + 1)
         axios.post('/api/face-to-face/addPoint', {
@@ -65,6 +77,27 @@ const FaceToFaceConsole = () => {
             })
     }
 
+    const handleStopTimer = () => {
+        axios.post('/api/face-to-face/timer/stop')
+            .then(response => {
+                parseResponse(response)
+            })
+    }
+
+    const handleResumeTimer = () => {
+        axios.post('/api/face-to-face/timer/resume')
+            .then(async response => {
+                parseResponse(response)
+            })
+    }
+
+    const handleResetTimer = () => {
+        axios.post('/api/face-to-face/timer/start')
+            .then(response => {
+                parseResponse(response)
+            })
+    }
+
     return (
         <div id="faceToFaceConsole">
             <div className="teamControllers">
@@ -81,10 +114,10 @@ const FaceToFaceConsole = () => {
                 }
                 <div className="teamController">
                     <div className="teamName">TIMER</div>
-                    <div className="point timerConsole">{timer.value}</div>
-                    <ButtonPrimary className="addPoint">Stop</ButtonPrimary>
-                    <ButtonPrimary className="removePoint">Resume</ButtonPrimary>
-                    <ButtonPrimary className="hand">Reset</ButtonPrimary>
+                    <div className="point timerConsole">{parseInt(timer.value)}</div>
+                    <ButtonPrimary className="addPoint" onClick={handleStopTimer}>Stop</ButtonPrimary>
+                    <ButtonPrimary className="removePoint" onClick={handleResumeTimer}>Resume</ButtonPrimary>
+                    <ButtonPrimary className="hand" onClick={handleResetTimer}>Reset</ButtonPrimary>
                 </div>
             </div>
             <ButtonPrimary className="unlockBuzzer">Débloquer buzzer</ButtonPrimary>

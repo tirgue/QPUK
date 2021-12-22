@@ -15,7 +15,8 @@ class GameState {
                     "teams": {},
                     "timer": {
                         "value": 40,
-                        "running": false
+                        "running": false,
+                        "lastStop": new Date()
                     },
                     "theme": ""
                 },
@@ -23,7 +24,8 @@ class GameState {
                     "teams": {},
                     "timer": {
                         "value": 20,
-                        "running": false
+                        "running": false,
+                        "lastStop": new Date()
                     },
                     "firstHand": null,
                     "hand": null
@@ -105,7 +107,7 @@ class GameState {
     }
     fourInARowStartTimer(timerValue = 40) {
         this.state.games.fourInARow.timer.value = timerValue
-        this.fourInARowResumeTimer()
+        this.fourInARowStopTimer()
     }
     fourInARowStopTimer() {
         this.state.games.fourInARow.timer.running = false
@@ -145,13 +147,20 @@ class GameState {
     }
     faceToFaceStartTimer(timerValue = 20) {
         this.state.games.faceToFace.timer.value = timerValue
-        this.faceToFaceResumeTimer()
+        this.state.games.faceToFace.timer.running = false
+        this.state.games.faceToFace.timer.lastStop = new Date()
     }
     faceToFaceStopTimer() {
+        if (!this.state.games.faceToFace.timer.running) return
+        const newDate = new Date()
         this.state.games.faceToFace.timer.running = false
+        this.state.games.faceToFace.timer.value = this.state.games.faceToFace.timer.value - (newDate - this.state.games.faceToFace.timer.lastStop) / 1000
+        this.state.games.faceToFace.timer.lastStop = newDate
     }
     faceToFaceResumeTimer() {
+        if (this.state.games.faceToFace.timer.running) return
         this.state.games.faceToFace.timer.running = true
+        this.state.games.faceToFace.timer.lastStop = new Date()
     }
 
 

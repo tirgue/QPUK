@@ -60,7 +60,8 @@
             },
             "timer": {
                 "value": 16,
-                "running": true
+                "running": true,
+                "lastStop": "2021-12-22T19:11:39.954Z"
             },
             "theme": "Les poissons"
         },
@@ -77,7 +78,8 @@
             },
             "timer": {
                 "value": 16,
-                "running": true
+                "running": true,
+                "lastStop": "2021-12-22T19:11:39.954Z"
             },
             "firstHand": "team2",
             "hand": "team1"

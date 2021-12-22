@@ -24,7 +24,7 @@ router.post('/timer/start', (req, res, next) => {
     if (timerValue)
         gameState.faceToFaceStartTimer(timerValue)
     else
-        gameState.fourInARowStartTimer()
+        gameState.faceToFaceStartTimer()
     res.status(200).json(gameState.state)
 })
 
