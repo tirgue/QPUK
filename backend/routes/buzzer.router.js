@@ -13,6 +13,11 @@ router.post('/', (req, res, next) => {
         if (team) team.buzzerId = buzzerId
     }
 
+    if (gameState.state.currentGame === "ninePoints") {
+        const { teamName } = gameState.getTeamByBuzzerId(buzzerId)
+        gameState.ninePointsBuzz(teamName)
+    }
+
     return res.status(200).json(gameState.state)
 })
 

@@ -7,12 +7,16 @@ const NinePointsConsole = () => {
 
     const [teams, setTeams] = useState({})
 
+    const parseResponse = (response) => {
+        const state = response.data
+        const ninePointsState = state.games.ninePoints
+        setTeams(ninePointsState.teams)
+    }
+
     useEffect(() => {
         axios.get('/api/state')
             .then(response => {
-                const state = response.data
-                const ninePointsState = state.games.ninePoints
-                setTeams(ninePointsState.teams)
+                parseResponse(response)
             })
     }, []);
 
@@ -22,9 +26,7 @@ const NinePointsConsole = () => {
             points: points
         })
             .then(response => {
-                const state = response.data
-                const ninePointsState = state.games.ninePoints
-                setTeams(ninePointsState.teams)
+                parseResponse(response)
             })
     }
 
@@ -34,9 +36,14 @@ const NinePointsConsole = () => {
             points: points
         })
             .then(response => {
-                const state = response.data
-                const ninePointsState = state.games.ninePoints
-                setTeams(ninePointsState.teams)
+                parseResponse(response)
+            })
+    }
+
+    const handleUnlockBuzzer = () => {
+        axios.post('/api/nine-points/unlockBuzzer')
+            .then(response => {
+                parseResponse(response)
             })
     }
 
@@ -44,9 +51,9 @@ const NinePointsConsole = () => {
         <div id="ninePointsConsole">
             <div className="teamControllers">
                 {
-                    Object.entries(teams).map(([teamName, { points }]) =>
+                    Object.entries(teams).map(([teamName, { points, buzz }]) =>
                         <div key={teamName} className="teamController">
-                            <div className="teamName">{teamName}</div>
+                            <div className={`teamName ${buzz ? "buzz" : ""}`}>{teamName}</div>
                             <div className="point">{points}</div>
                             <ButtonPrimary className="addPoint" onClick={() => handleAddPoint(teamName, 1)}>+</ButtonPrimary>
                             <ButtonPrimary className="removePoint" onClick={() => handleRemovePoint(teamName, 1)}>-</ButtonPrimary>
@@ -54,7 +61,7 @@ const NinePointsConsole = () => {
                     )
                 }
             </div>
-            <ButtonPrimary className="unlockBuzzer">Débloquer buzzer</ButtonPrimary>
+            <ButtonPrimary className="unlockBuzzer" onClick={handleUnlockBuzzer}>Débloquer buzzer</ButtonPrimary>
         </div>
     );
 };

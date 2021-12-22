@@ -59,6 +59,11 @@ class GameState {
         delete this.state.games.fourInARow.teams[teamName]
         delete this.state.games.faceToFace.teams[teamName]
     }
+    getTeamByBuzzerId(id) {
+        return this.state.teams.find(({ buzzerId }) => {
+            return buzzerId === id
+        })
+    }
     setCurrentGame(gameName) {
         this.state.currentGame = gameName
     }
@@ -79,10 +84,11 @@ class GameState {
     }
     ninePointsBuzz(teamName) {
         if (this.state.games.ninePoints.teams[teamName]) {
+            let buzzerAvailable = true
             Object.entries(this.state.games.ninePoints.teams).forEach(([team, { points, buzz }]) => {
-                if (buzz) return
+                if (buzz) buzzerAvailable = false
             })
-            this.state.games.ninePoints.teams[teamName].buzz = true
+            if (buzzerAvailable) this.state.games.ninePoints.teams[teamName].buzz = true
         }
     }
     ninePointsClearBuzz() {
