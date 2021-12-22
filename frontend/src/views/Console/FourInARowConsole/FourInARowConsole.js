@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { ButtonPrimary } from '../../../components/components.index';
+import worstTeam from '../../../utils/extractBestTeams';
 import './FourInARowConsole.scss'
 
 const FourInARowConsole = () => {
@@ -11,8 +12,12 @@ const FourInARowConsole = () => {
         axios.get('/api/state')
             .then(response => {
                 const state = response.data
+                const ninePointsState = state.games.ninePoints
                 const fourInARowState = state.games.fourInARow
-                setTeams(fourInARowState.teams)
+                const teamToDelete = worstTeam(ninePointsState.teams, "points")
+                const bestTeams = { ...fourInARowState.teams }
+                delete bestTeams[teamToDelete]
+                setTeams(bestTeams)
             })
     }, []);
 
@@ -23,8 +28,12 @@ const FourInARowConsole = () => {
         })
             .then(response => {
                 const state = response.data
+                const ninePointsState = state.games.ninePoints
                 const fourInARowState = state.games.fourInARow
-                setTeams(fourInARowState.teams)
+                const teamToDelete = worstTeam(ninePointsState.teams, "points")
+                const bestTeams = { ...fourInARowState.teams }
+                delete bestTeams[teamToDelete]
+                setTeams(bestTeams)
             })
     }
 
@@ -34,8 +43,12 @@ const FourInARowConsole = () => {
         })
             .then(response => {
                 const state = response.data
+                const ninePointsState = state.games.ninePoints
                 const fourInARowState = state.games.fourInARow
-                setTeams(fourInARowState.teams)
+                const teamToDelete = worstTeam(ninePointsState.teams, "points")
+                const bestTeams = { ...fourInARowState.teams }
+                delete bestTeams[teamToDelete]
+                setTeams(bestTeams)
             })
     }
 
