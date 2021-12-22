@@ -16,7 +16,8 @@ class GameState {
                     "timer": {
                         "value": 40,
                         "running": false
-                    }
+                    },
+                    "theme": ""
                 },
                 "faceToFace": {
                     "teams": {},
@@ -111,6 +112,9 @@ class GameState {
     }
     fourInARowResumeTimer() {
         this.state.games.fourInARow.timer.running = true
+    }
+    fourInARowSetTheme(theme) {
+        this.state.games.fourInARow.theme = theme
     }
 
     // Face to face methods

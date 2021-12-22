@@ -1,5 +1,6 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { Form } from 'react-bootstrap';
 import { ButtonPrimary } from '../../../components/components.index';
 import worstTeam from '../../../utils/extractBestTeams';
 import './FourInARowConsole.scss'
@@ -7,6 +8,8 @@ import './FourInARowConsole.scss'
 const FourInARowConsole = () => {
 
     const [teams, setTeams] = useState({})
+    const [timer, setTimer] = useState({})
+    const inputThemeRef = useRef()
 
     useEffect(() => {
         axios.get('/api/state')
@@ -18,6 +21,7 @@ const FourInARowConsole = () => {
                 const bestTeams = { ...fourInARowState.teams }
                 delete bestTeams[teamToDelete]
                 setTeams(bestTeams)
+                setTimer(fourInARowState.timer)
             })
     }, []);
 
@@ -52,6 +56,14 @@ const FourInARowConsole = () => {
             })
     }
 
+    const handleThemeKeyUp = () => {
+        const theme = inputThemeRef.current.value
+        axios.post('/api/four-in-a-row/theme', {
+            theme: theme
+        })
+            .then(response => { })
+    }
+
     return (
         <div id="fourInARowConsole">
             <div className="teamControllers">
@@ -66,7 +78,15 @@ const FourInARowConsole = () => {
                         </div>
                     )
                 }
+                <div className="teamController">
+                    <div className="teamName">TIMER</div>
+                    <div className="point timerConsole">{timer.value}</div>
+                    <ButtonPrimary className="addPoint">Stop</ButtonPrimary>
+                    <ButtonPrimary className="removePoint">Resume</ButtonPrimary>
+                    <ButtonPrimary className="hand">Reset</ButtonPrimary>
+                </div>
             </div>
+            <Form.Control ref={inputThemeRef} className="themeInput" onKeyUp={handleThemeKeyUp} placeholder="Theme"></Form.Control>
         </div>
     );
 };

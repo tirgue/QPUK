@@ -10,7 +10,7 @@ router.post('/', (req, res, next) => {
         const team = gameState.state.teams.find(({ buzzerId }) => {
             return !buzzerId
         })
-        team.buzzerId = buzzerId
+        if (team) team.buzzerId = buzzerId
     }
 
     return res.status(200).json(gameState.state)

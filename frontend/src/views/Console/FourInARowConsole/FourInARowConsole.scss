@@ -19,7 +19,7 @@
 }
 
 .teamController {
-    max-width: 20%;
+    // max-width: 20%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,7 +44,7 @@
     color: rgba($color: #ffffff, $alpha: .9);
 }
 
-.unlockBuzzer {
+.themeInput {
     margin-top: 5%;
-    width: 80%;
+    width: 80% !important;
 }

@@ -33,4 +33,10 @@ router.post('/timer/resume', (req, res, next) => {
     res.status(200).json(gameState.state)
 })
 
+router.post('/theme', (req, res, next) => {
+    ({ theme } = req.body)
+    gameState.fourInARowSetTheme(theme)
+    res.status(200).json(gameState.state)
+})
+
 module.exports = router

@@ -5,7 +5,7 @@ const worstTeam = (teamsObject, pointName) => {
         return 0
     })
     const team = teamsOrdered.pop()
-    return team[0]
+    return team ? team[0] : null
 }
 
 export default worstTeam

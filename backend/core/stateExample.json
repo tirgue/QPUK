@@ -61,7 +61,8 @@
             "timer": {
                 "value": 16,
                 "running": true
-            }
+            },
+            "theme": "Les poissons"
         },
         "faceToFace": {
             "teams": {

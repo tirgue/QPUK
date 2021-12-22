@@ -4,7 +4,7 @@ var gameState = require('../core/GameState')
 
 var ninePointsRouter = require('./ninePoints/ninePoints.router')
 var fourInARowRouter = require('./fourInARow/fourInARow.router')
-var faceToFaceRouter = require('./faceToFace/faceToface.router')
+var faceToFaceRouter = require('./faceToFace/faceToFace.router')
 var buzzerRouter = require('./buzzer.router');
 const sleep = require('../utils/sleep');
 
