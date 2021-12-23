@@ -12,7 +12,7 @@ const Screen = () => {
     const [gameState, setGameState] = useState({});
 
     useEffect(() => {
-        const events = new EventSource('http://localhost:8080/api/state/event');
+        const events = new EventSource('/api/state/event');
 
         events.onmessage = (event) => {
             setGameState(JSON.parse(event.data));
