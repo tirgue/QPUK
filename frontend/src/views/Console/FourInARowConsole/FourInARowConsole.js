@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { useEffect, useRef, useState } from 'react';
 import { Form } from 'react-bootstrap';
 import { ButtonPrimary } from '../../../components/components.index';
-import worstTeam from '../../../utils/extractBestTeams';
+import worstTeam from '../../../utils/worstTeam';
 import './FourInARowConsole.scss'
 
 const FourInARowConsole = () => {
@@ -116,7 +116,7 @@ const FourInARowConsole = () => {
                 }
                 <div className="teamController">
                     <div className="teamName">TIMER</div>
-                    <div className="point timerConsole">{timer.value}</div>
+                    <div className="point timerConsole">{parseInt(timer.value)}</div>
                     <ButtonPrimary className="addPoint" onClick={handleStopTimer}>Stop</ButtonPrimary>
                     <ButtonPrimary className="removePoint" onClick={handleResumeTimer}>Resume</ButtonPrimary>
                     <ButtonPrimary className="hand" onClick={handleResetTimer}>Reset</ButtonPrimary>

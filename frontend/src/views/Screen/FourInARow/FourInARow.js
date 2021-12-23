@@ -1,22 +1,50 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import './FourInARow.scss'
 
-const FourInARow = () => {
+const FourInARow = ({ state }) => {
+    const [timer, setTimer] = useState(state.timer)
+
+    const team = state.teams[state.currentTeam]
+
+    useEffect(() => {
+        if (!timer.running) return
+        const clock = setTimeout(() => {
+            setTimer({
+                ...timer,
+                value: Math.max(timer.value - 1, 0)
+            })
+        }, 1000)
+
+        return () => clearTimeout(clock)
+    });
+
+    useEffect(() => {
+        setTimer(state.timer)
+    }, [state]);
+
     return (
         <div id="fiar">
             <div className="fiar-infos">
-                <div className="teamName">Equipe 1</div>
-                <div className="subject">Les poissons d'eau douce</div>
-                <div className="timer">06</div>
+                <div className="teamName">{state.currentTeam || "Aucune équipe sélectionnée"}</div>
+                <div className="subject">{state.theme || "Aucun thème sélectionné"}</div>
+                <div className="timer">{parseInt(timer.value)}</div>
             </div>
             <div className="stack">
-                <div className="point point-off">4</div>
-                <div className="point point-off">3</div>
-                <div className="point point-on">2</div>
-                <div className="point point-on point-selected">1</div>
-                <div className="point point-on">0</div>
+                {
+                    [...Array(5)].map((_, index) => {
+                        const i = 4 - index
+                        let className = "point "
+                        if (team) {
+                            if (team.bestPoints >= i) className += "point-on "
+                            else className += "point-off "
+                            if (team.currentPoints === i) className += "point-selected "
+                        }
+                        return <div key={i} className={className}>{i}</div>
+
+                    })
+                }
             </div>
-        </div>
+        </div >
     );
 }
 

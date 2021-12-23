@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { ButtonPrimary } from '../../../components/components.index';
-import worstTeam from '../../../utils/extractBestTeams';
+import worstTeam from '../../../utils/worstTeam';
 import './FaceToFaceConsole.scss'
 
 const FaceToFaceConsole = () => {

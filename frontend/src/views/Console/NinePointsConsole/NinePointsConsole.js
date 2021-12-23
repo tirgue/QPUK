@@ -20,6 +20,21 @@ const NinePointsConsole = () => {
             })
     }, []);
 
+    useEffect(() => {
+        const events = new EventSource('http://localhost:8080/api/state/event');
+
+        events.onmessage = (event) => {
+            parseResponse({ data: JSON.parse(event.data) })
+        };
+
+        events.onerror = (event) => {
+            console.error(event)
+            events.close()
+        }
+
+        return () => events.close()
+    }, []);
+
     const handleAddPoint = (teamName, points) => {
         axios.post('/api/nine-points/addPoint', {
             teamName: teamName,

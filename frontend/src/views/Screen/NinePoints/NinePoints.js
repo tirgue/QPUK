@@ -1,30 +1,29 @@
 import React from 'react';
 import './NinePoints.scss'
 
-const NinePoints = () => {
+const NinePoints = ({ state }) => {
 
     return (
         <div id="ninePoints">
             {
-                [5, 2, 3, 6].map(points => {
-                    return (
-                        <div className="bar">
-                            <p className="teamName">Equipe 1 qui a un nom trop long</p>
-                            <div className="point point-off" />
-                            <div className="point point-off" />
-                            <div className="point point-off" />
-                            <div className="point point-off" />
-                            <div className="point point-off" />
-                            <div className="point point-off" />
-                            <div className="point point-on" />
-                            <div className="point point-on" />
-                            <div className="point point-on" />
-                        </div>
-                    )
-                })
+                Object.entries(state.teams).map(([teamName, { points, buzz }]) =>
+                    <div key={teamName} className="bar">
+                        <p className={`teamName ${buzz ? "buzz" : ""}`}>{teamName}</p>
+                        {
+                            [...Array(9 - Math.min(points, 9))].map((_, key) =>
+                                <div key={key} className="point point-off" />
+                            )
+                        }
+                        {
+                            [...Array(Math.max(points, 0))].map((_, key) =>
+                                <div key={key} className="point point-on" />
+                            )
+                        }
+                    </div>
+                )
             }
         </div>
-    );
+    )
 }
 
 export default NinePoints;
