@@ -34,7 +34,7 @@ $pointHeight: 20vh;
     line-height: $pointHeight;
     min-height: $pointHeight;
     text-align: center;
-    background-color: colors.$orange;
+    // background: linear-gradient(0deg, colors.$orange 50%, colors.$darkBlue 50%);
     color: rgb(236, 236, 236);
     border-radius: 50px;
     border: solid 10px grey;
