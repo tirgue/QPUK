@@ -5,18 +5,18 @@ var gameState = require('../../core/GameState')
 router.post('/addPoint', (req, res, next) => {
     ({ teamName, points } = req.body)
     gameState.ninePointsAddPoint(points, teamName)
-    res.status(200).json(gameState.state)
+    next()
 })
 
 router.post('/removePoint', (req, res, next) => {
     ({ teamName, points } = req.body)
     gameState.ninePointsRemovePoint(points, teamName)
-    res.status(200).json(gameState.state)
+    next()
 })
 
 router.post('/unlockBuzzer', (req, res, next) => {
     gameState.ninePointsClearBuzz()
-    res.status(200).json(gameState.state)
+    next()
 })
 
 module.exports = router

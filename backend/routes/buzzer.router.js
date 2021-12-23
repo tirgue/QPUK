@@ -23,7 +23,7 @@ router.post('/', (req, res, next) => {
         gameState.faceToFaceBuzz(teamName)
     }
 
-    return res.status(200).json(gameState.state)
+    return next()
 })
 
 module.exports = router;
