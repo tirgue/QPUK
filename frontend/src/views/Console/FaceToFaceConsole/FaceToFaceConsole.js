@@ -38,6 +38,21 @@ const FaceToFaceConsole = () => {
     }, []);
 
     useEffect(() => {
+        const events = new EventSource('http://localhost:8080/api/state/event');
+
+        events.onmessage = (event) => {
+            parseResponse({ data: JSON.parse(event.data) });
+        };
+
+        events.onerror = (event) => {
+            console.error(event)
+            events.close()
+        }
+
+        return () => events.close()
+    }, []);
+
+    useEffect(() => {
         if (!timer.running) return
         const clock = setTimeout(() => {
             setTimer({
@@ -115,9 +130,9 @@ const FaceToFaceConsole = () => {
         <div id="faceToFaceConsole">
             <div className="teamControllers">
                 {
-                    Object.entries(teams).map(([teamName, { points }]) =>
+                    Object.entries(teams).map(([teamName, { points, buzz }]) =>
                         <div key={teamName} className="teamController">
-                            <div className="teamName">{teamName}</div>
+                            <div className={`teamName ${buzz ? "buzz" : ""}`}>{teamName}</div>
                             <div className="point">{points}</div>
                             <ButtonPrimary className="addPoint" onClick={() => handleAddPoint(teamName)}>+</ButtonPrimary>
                             <ButtonPrimary className="removePoint" onClick={() => handleRemovePoint(teamName)}>-</ButtonPrimary>
