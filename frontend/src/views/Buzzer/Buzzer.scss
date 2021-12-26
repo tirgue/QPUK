@@ -1,0 +1,30 @@
+@use '../../constants/colors.scss';
+
+#buzzer {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    background-color: colors.$darkBlue;
+    z-index: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:active .pushBuzzer{
+        background-color: colors.$orange;
+    }
+}
+
+$buzzHeiht: min(80vh, 80vw);
+.pushBuzzer {
+    width: $buzzHeiht;
+    height: $buzzHeiht;
+    background-color: colors.$lightBlue;
+    line-height: $buzzHeiht;
+    text-align: center;
+    color: white;
+    font-size: calc($buzzHeiht / 4);
+    border-radius: 5%;
+    -webkit-box-shadow: 0px 0px 20px 0px #000000; 
+    box-shadow: 0px 0px 30px 0px #000000;
+}

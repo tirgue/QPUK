@@ -6,9 +6,9 @@ const NinePoints = ({ state }) => {
     return (
         <div id="ninePoints">
             {
-                Object.entries(state.teams).map(([teamName, { points, buzz }]) =>
+                Object.entries(state.teams).map(([teamName, { points, buzz, lock }]) =>
                     <div key={teamName} className="bar">
-                        <p className={`teamName ${buzz ? "buzz" : ""}`}>{teamName}</p>
+                        <p className={`teamName ${buzz ? "buzz" : lock ? "lock" : ""}`}>{teamName}</p>
                         {
                             [...Array(9 - Math.min(points, 9))].map((_, key) =>
                                 <div key={key} className="point point-off" />

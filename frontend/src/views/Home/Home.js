@@ -11,7 +11,7 @@ const Home = () => {
             <img id="logo" alt="Logo de Question pour un Kupong" src={qpukLogo} />
             <Row>
                 <Col>
-                    <ButtonPrimary>Jouer</ButtonPrimary>
+                    <ButtonPrimary as={Link} to="/play">Jouer</ButtonPrimary>
                 </Col>
                 <Col>
                     <ButtonPrimary as={Link} to="/animate">Animer</ButtonPrimary>

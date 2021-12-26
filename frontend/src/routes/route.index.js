@@ -2,7 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { GoBackButton } from '../components/components.index';
 import Console, { AddTeam, FaceToFaceConsole, FourInARowConsole, NinePointsConsole, } from '../views/Console/Console';
-import { Home, AnimateMenu, Screen } from '../views/views.index';
+import { Home, AnimateMenu, Screen, Buzzer } from '../views/views.index';
 
 const RouteIndex = () => {
     return (
@@ -36,6 +36,9 @@ const RouteIndex = () => {
                         </Route>
                     </Console>
                 </Route>
+            </Route>
+            <Route path="/play">
+                <Buzzer />
             </Route>
         </Router>
     );

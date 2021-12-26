@@ -73,9 +73,9 @@ const NinePointsConsole = () => {
         <div id="ninePointsConsole">
             <div className="teamControllers">
                 {
-                    Object.entries(teams).map(([teamName, { points, buzz }]) =>
+                    Object.entries(teams).map(([teamName, { points, buzz, lock }]) =>
                         <div key={teamName} className="teamController">
-                            <div className={`teamName ${buzz ? "buzz" : ""}`}>{teamName}</div>
+                            <div className={`teamName ${buzz ? "buzz" : lock ? "lock" : ""}`}>{teamName}</div>
                             <div className="point">{points}</div>
                             <ButtonPrimary className="addPoint" onClick={() => handleAddPoint(teamName, 1)}>+</ButtonPrimary>
                             <ButtonPrimary className="removePoint" onClick={() => handleRemovePoint(teamName, 1)}>-</ButtonPrimary>
