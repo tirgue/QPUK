@@ -14,8 +14,13 @@ router.post('/removePoint', (req, res, next) => {
     next()
 })
 
-router.post('/unlockBuzzer', (req, res, next) => {
-    gameState.ninePointsClearBuzz()
+router.post('/buzzer/unlock', (req, res, next) => {
+    gameState.ninePointsUnlockBuzzer()
+    next()
+})
+
+router.post('/buzzer/reset', (req, res, next) => {
+    gameState.ninePointsResetBuzzer()
     next()
 })
 

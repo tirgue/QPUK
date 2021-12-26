@@ -23,19 +23,23 @@
             "teams": {
                 "team1": {
                     "points": 6,
-                    "buzz": true
+                    "buzz": true,
+                    "lock": false
                 },
                 "team2": {
                     "points": 6,
-                    "buzz": false
+                    "buzz": false,
+                    "lock": false
                 },
                 "team3": {
                     "points": 6,
-                    "buzz": false
+                    "buzz": false,
+                    "lock": false
                 },
                 "team4": {
                     "points": 6,
-                    "buzz": false
+                    "buzz": false,
+                    "lock": true
                 }
             }
         },

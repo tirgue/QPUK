@@ -24,7 +24,6 @@ const FaceToFace = ({ state, finalists }) => {
 
     useEffect(() => {
         setTimer(state.timer)
-        console.log(timer);
     }, [state]);
 
     const buildPointClassName = (point) => {

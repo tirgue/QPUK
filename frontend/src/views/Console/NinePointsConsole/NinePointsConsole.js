@@ -56,7 +56,14 @@ const NinePointsConsole = () => {
     }
 
     const handleUnlockBuzzer = () => {
-        axios.post('/api/nine-points/unlockBuzzer')
+        axios.post('/api/nine-points/buzzer/unlock')
+            .then(response => {
+                parseResponse(response)
+            })
+    }
+
+    const handleResetBuzzer = () => {
+        axios.post('/api/nine-points/buzzer/reset')
             .then(response => {
                 parseResponse(response)
             })
@@ -76,7 +83,10 @@ const NinePointsConsole = () => {
                     )
                 }
             </div>
-            <ButtonPrimary className="unlockBuzzer" onClick={handleUnlockBuzzer}>Débloquer buzzer</ButtonPrimary>
+            <div className="d-flex flex-row">
+                <ButtonPrimary className="unlockBuzzer" onClick={handleUnlockBuzzer}>Débloquer buzzer</ButtonPrimary>
+                <ButtonPrimary className="unlockBuzzer" onClick={handleResetBuzzer}>Réinitialiser buzzer</ButtonPrimary>
+            </div>
         </div>
     );
 };

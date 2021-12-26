@@ -46,7 +46,8 @@ class GameState {
         })
         this.state.games.ninePoints.teams[teamName] = {
             "points": 0,
-            "buzz": false
+            "buzz": false,
+            "lock": false
         }
         this.state.games.fourInARow.teams[teamName] = {
             "currentPoints": 0,
@@ -90,17 +91,27 @@ class GameState {
     }
     ninePointsBuzz(teamName) {
         if (this.state.games.ninePoints.teams[teamName]) {
+            if (this.state.games.ninePoints.teams[teamName].lock) return
             let buzzerAvailable = true
             Object.entries(this.state.games.ninePoints.teams).forEach(([team, { points, buzz }]) => {
                 if (buzz) buzzerAvailable = false
             })
-            if (buzzerAvailable) this.state.games.ninePoints.teams[teamName].buzz = true
+            if (buzzerAvailable) {
+                this.state.games.ninePoints.teams[teamName].buzz = true
+                this.state.games.ninePoints.teams[teamName].lock = true
+            }
         }
     }
-    ninePointsClearBuzz() {
+    ninePointsUnlockBuzzer() {
         Object.entries(this.state.games.ninePoints.teams).forEach(([team, teamState]) => {
             teamState.buzz = false
         })
+    }
+    ninePointsResetBuzzer() {
+        Object.entries(this.state.games.ninePoints.teams).forEach(([team, teamState]) => {
+            teamState.lock = false
+        })
+        this.ninePointsUnlockBuzzer()
     }
 
     // 4 In A Row methods
