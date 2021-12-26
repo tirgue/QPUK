@@ -193,10 +193,6 @@ class GameState {
             const timerValue = this.state.games.faceToFace.timer.value - (newDate - this.state.games.faceToFace.timer.lastStop) / 1000
             const currentIndex = parseInt((timerValue / 5) + 1)
 
-            console.log("Current Index:", currentIndex);
-            console.log("Hand:", this.state.games.faceToFace.hand);
-            console.log("Team:", teamName);
-
             if (this.state.games.faceToFace.hand[currentIndex] !== teamName) return
 
             this.faceToFaceStopTimer()
@@ -207,6 +203,17 @@ class GameState {
         Object.entries(this.state.games.faceToFace.teams).forEach(([team, teamState]) => {
             teamState.buzz = false
         })
+    }
+    faceToFaceSwitchHand(otherTeam) {
+        if (this.state.games.faceToFace.timer.running) return
+        const currentIndex = parseInt((this.state.games.faceToFace.timer.value / 5) + 1)
+        for (let index = currentIndex; index > 0; index--) {
+            if (this.state.games.faceToFace.hand[index] !== otherTeam) {
+                this.state.games.faceToFace.hand[index] = otherTeam
+            } else {
+                break;
+            }
+        }
     }
     faceToFaceStartTimer(timerValue = 20) {
         this.state.games.faceToFace.timer.value = timerValue

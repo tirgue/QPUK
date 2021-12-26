@@ -126,6 +126,19 @@ const FaceToFaceConsole = () => {
             })
     }
 
+    const handleBadAnswer = () => {
+        const [otherTeam] = Object.entries(teams).find(([teamName, { points, buzz }]) => {
+            return !buzz
+        })
+        console.log("Other Team:", otherTeam);
+        axios.post('/api/face-to-face/badAnswer', {
+            otherTeam: otherTeam
+        })
+            .then(response => {
+                parseResponse(response)
+            })
+    }
+
     return (
         <div id="faceToFaceConsole">
             <div className="teamControllers">
@@ -148,7 +161,10 @@ const FaceToFaceConsole = () => {
                     <ButtonPrimary className="hand" onClick={handleResetTimer}>Reset</ButtonPrimary>
                 </div>
             </div>
-            <ButtonPrimary className="unlockBuzzer" onClick={handleUnlockBuzzer}>Débloquer buzzer</ButtonPrimary>
+            <div className="d-flex flex-row">
+                <ButtonPrimary className="unlockBuzzer" onClick={handleUnlockBuzzer}>Débloquer buzzer</ButtonPrimary>
+                <ButtonPrimary className="unlockBuzzer" onClick={handleBadAnswer}>Mauvaise réponse</ButtonPrimary>
+            </div>
         </div>
     );
 };

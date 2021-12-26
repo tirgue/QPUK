@@ -19,6 +19,12 @@ router.post('/unlockBuzzer', (req, res, next) => {
     next()
 })
 
+router.post('/badAnswer', (req, res, next) => {
+    ({ otherTeam } = req.body)
+    gameState.faceToFaceSwitchHand(otherTeam)
+    next()
+})
+
 router.post('/timer/start', (req, res, next) => {
     ({ timerValue } = req.body)
     if (timerValue)
