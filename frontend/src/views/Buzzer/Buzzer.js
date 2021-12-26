@@ -8,7 +8,7 @@ const Buzzer = () => {
     useEffect(() => {
         if (localStorage.getItem("buzzerId")) return setBuzzerId(localStorage.getItem("buzzerId"))
         const id = new Date().getTime().toString() + parseInt(Math.random() * 100)
-        localStorage.setItem("buzz", id)
+        localStorage.setItem("buzzerId", id)
         setBuzzerId(id)
     }, [])
 
