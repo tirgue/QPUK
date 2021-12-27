@@ -139,6 +139,14 @@ const FaceToFaceConsole = () => {
             })
     }
 
+    const disableResume = () => {
+        const v = !!Object.entries(teams).find(([teamName, { buzz }]) => {
+            return buzz
+        })
+        console.log(v);
+        return v
+    }
+
     return (
         <div id="faceToFaceConsole">
             <div className="teamControllers">
@@ -157,7 +165,7 @@ const FaceToFaceConsole = () => {
                     <div className="teamName">TIMER</div>
                     <div className="point timerConsole">{parseInt(timer.value)}</div>
                     <ButtonPrimary className="addPoint" onClick={handleStopTimer}>Stop</ButtonPrimary>
-                    <ButtonPrimary className="removePoint" onClick={handleResumeTimer}>Resume</ButtonPrimary>
+                    <ButtonPrimary className="removePoint" onClick={handleResumeTimer} disabled={disableResume()}>Resume</ButtonPrimary>
                     <ButtonPrimary className="hand" onClick={handleResetTimer}>Reset</ButtonPrimary>
                 </div>
             </div>
