@@ -27,7 +27,7 @@ const FourInARow = ({ state }) => {
             <div className="fiar-infos">
                 <div className="teamName">{state.currentTeam || "Aucune équipe sélectionnée"}</div>
                 <div className="subject">{state.theme || "Aucun thème sélectionné"}</div>
-                <div className="timer">{parseInt(timer.value)}</div>
+                <div className="timer">{parseInt(timer.value).toString()}</div>
             </div>
             <div className="stack">
                 {

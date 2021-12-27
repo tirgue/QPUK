@@ -160,7 +160,7 @@ const FaceToFaceConsole = () => {
                 }
                 <div className="teamController">
                     <div className="teamName">TIMER</div>
-                    <div className="point timerConsole">{parseInt(timer.value)}</div>
+                    <div className="point timerConsole">{parseInt(timer.value).toString()}</div>
                     <ButtonPrimary className="addPoint" onClick={handleStopTimer}>Stop</ButtonPrimary>
                     <ButtonPrimary className="removePoint" onClick={handleResumeTimer} disabled={disableResume()}>Resume</ButtonPrimary>
                     <ButtonPrimary className="hand" onClick={handleResetTimer}>Reset</ButtonPrimary>
