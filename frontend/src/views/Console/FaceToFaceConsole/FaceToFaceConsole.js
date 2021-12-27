@@ -130,7 +130,6 @@ const FaceToFaceConsole = () => {
         const [otherTeam] = Object.entries(teams).find(([teamName, { points, buzz }]) => {
             return !buzz
         })
-        console.log("Other Team:", otherTeam);
         axios.post('/api/face-to-face/badAnswer', {
             otherTeam: otherTeam
         })
@@ -140,11 +139,9 @@ const FaceToFaceConsole = () => {
     }
 
     const disableResume = () => {
-        const v = !!Object.entries(teams).find(([teamName, { buzz }]) => {
+        return !!Object.entries(teams).find(([teamName, { buzz }]) => {
             return buzz
         })
-        console.log(v);
-        return v
     }
 
     return (
