@@ -4,8 +4,8 @@ import './FaceToFace.scss'
 const FaceToFace = ({ state, finalists }) => {
     const [timer, setTimer] = useState(state.timer)
 
-    const leftTeam = state.teams[finalists[0]]
-    const rightTeam = state.teams[finalists[1]]
+    const leftTeam = state.teams[finalists[0]] || {}
+    const rightTeam = state.teams[finalists[1]] || {}
 
     useEffect(() => {
         if (!timer.running) return
